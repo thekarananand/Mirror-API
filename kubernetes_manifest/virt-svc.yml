@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: user-virtsvc
+  namespace: mirror-ns
+spec:
+  gateways:
+  - istio-system/user-gw
+  hosts:
+  - "*"
+  http:
+  - match:
+    - uri:
+        prefix: /user/
+      rewrite:
+        uri: /
+    route:
+    - destination:
+        host: user-svc.mirror-ns.svc.cluster.local
+        port:
+          number: 80
