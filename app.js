@@ -13,14 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // All Routes
 app.all("*", (req, res) => {
-  res.json({
-    status    :  "Healthy",
-    appName   :  appName,
-    route     :  req.originalUrl,
-    method    :  req.method,
-    headers   :  req.headers,
-    payload   :  req.body
-  });
+    const responseData = {
+    status    : "Healthy",
+    appName   : appName,
+    route     : req.originalUrl,
+    method    : req.method,
+    headers   : req.headers,
+    payload   : req.body
+  };
+  console.log("📦 Response JSON:", JSON.stringify(responseData, null, 2));
+  res.json(responseData);
 });
 
 // Main
