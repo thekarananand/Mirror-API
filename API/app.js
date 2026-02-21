@@ -1,7 +1,9 @@
 const express = require("express");
 const cors    = require("cors");
 const app     = express();
-const port    = 8000;
+
+// Read PORT env variable
+const port    = process.env.PORT     || 8000;
 
 // Read appName env variable
 const appName = process.env.APP_NAME || "< No APP_NAME found >";
@@ -13,13 +15,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // All Routes
 app.all("*", (req, res) => {
-    const responseData = {
-    status    : "Healthy",
-    appName   : appName,
-    route     : req.originalUrl,
-    method    : req.method,
-    headers   : req.headers,
-    payload   : req.body
+  const responseData = {
+    status  : "Healthy",
+    env     : {
+      appName   : appName,
+    },
+    request : {
+      route     : req.originalUrl,
+      method    : req.method,
+      headers   : req.headers,
+      payload   : req.body
+    }
   };
   console.log("📦 Response JSON:", JSON.stringify(responseData, null, 2));
   res.json(responseData);
@@ -27,5 +33,5 @@ app.all("*", (req, res) => {
 
 // Main
 app.listen(port, () => {
-  console.log(`🚀 Listening on PORT: ${port}`);
+  console.log(`🚀 Listening on ${ !(process.env.PORT) && "DEFAULT "}PORT: ${port}`);
 });

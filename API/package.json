@@ -1,5 +1,5 @@
 {
-  "name": "simple-route-test-app",
+  "name": "mirror-api",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
