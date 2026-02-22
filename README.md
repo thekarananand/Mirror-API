@@ -20,7 +20,7 @@ The Application itself comes with a default, ready to use configuration, baked i
 | S.No. | Env Keys   | Default Value | Description |
 |-------|------------|---------------|-------------|
 | 1.    | `PORT`     | `8000`        | The port to listen on. |
-| 2.    | `APP_NAME` | -             | Sample Name for the API. Intended for env debugging |
+| 2.    | `APP_NAME` | -             | Sample Name for the API. Intended for env debugging. |
 
 ---
 
