@@ -1,0 +1,13 @@
+[Unit]
+Description=Mirror API Service
+After=network.target
+
+[Service]
+User=mirror-api
+Group=mirror-api
+WorkingDirectory=API_PATH
+ExecStart=/usr/bin/npm start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
