@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirror-api
+  labels:
+    purpose: debugging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mirror-api
+  template:
+    metadata:
+      labels:
+        app: mirror-api
+    spec:
+      containers:
+      - name: mirror-api
+        image: thekarananand/mirror-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+            memory: 500Mi
+          limits:
+            cpu: 500m
+            memory: 1000Mi
+        env:
+        - name: APP_NAME
+          value: "mirror-api"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mirror-api
+  labels:
+    purpose: debugging
+spec:
+  type: ClusterIP
+  selector:
+    app: mirror-api
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
