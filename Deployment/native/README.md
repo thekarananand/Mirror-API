@@ -27,7 +27,8 @@ Follow the following steps to deploy the API as a Systemd Service:
   sudo cp ${API_PATH}/mirror-api.service /etc/systemd/system/mirror-api.service
   
   # Install Dependencies
-  npm install
+  cd "${API_PATH}"
+  npm install --production
   
   # Setup and Start systemd service
   sudo systemctl daemon-reload
