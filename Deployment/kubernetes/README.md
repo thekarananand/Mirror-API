@@ -1,6 +1,6 @@
 # Kubernetes Deployment
 
-To deploy the API on your kubernetes cluster, Refer to [manifest.yaml](mainfest.yaml). Feel free to make change as per your setup, or simply use the following script.
+To deploy the API on your kubernetes cluster, Refer to [manifest.yaml](https://github.com/thekarananand/Mirror-API/blob/main/Deployment/kubernetes/manifest.yaml). Feel free to make change as per your setup, or simply use the following script.
 
 ```sh
 # Set Variables
