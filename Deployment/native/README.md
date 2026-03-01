@@ -24,6 +24,8 @@ Follow the following steps to deploy the API as a Systemd Service:
   wget ${RAW_PATH}/API/package.json -O ${API_PATH}/package.json
   
   # Configure Service
+  sed -i "s|User=mirror-api|User=$(whoami)|" ${API_PATH}/mirror-api.service
+  sed -i "s|Group=mirror-api|Group=$(id -gn)|" ${API_PATH}/mirror-api.service
   sed -i "s|WorkingDirectory=API_PATH|WorkingDirectory=${API_PATH}|" ${API_PATH}/mirror-api.service
   sed -i "s|ExecStart=NPM_CMD|ExecStart=${NPM_CMD}|" ${API_PATH}/mirror-api.service
   sudo cp ${API_PATH}/mirror-api.service /etc/systemd/system/mirror-api.service
