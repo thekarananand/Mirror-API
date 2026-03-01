@@ -8,6 +8,8 @@ Group=mirror-api
 WorkingDirectory=API_PATH
 ExecStart=NPM_CMD
 ExecSearchPath=EXEC_SEARCH_PATH
+ExecSearchPath=/usr/bin
+ExecSearchPath=/bin
 Restart=always
 
 [Install]
