@@ -1,6 +1,6 @@
 const express = require("express");
 const cors    = require("cors");
-const https   = require("https");
+const fetch   = require("node-fetch");
 
 // Declare app
 const app     = express();
@@ -18,32 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // Network Test
 const network_test_api = "https://ipinfo.io/json"
-const network_test = () => {
-  return new Promise((resolve) => {
-    https.get(network_test_api, (resp) => {
-      let data = "";
-      resp.on("data", (chunk) => {
-        data += chunk;
-      });
-      resp.on("end", () => {
-        try {
-          const parsed = JSON.parse(data);
-          resolve([true, parsed.ip || null]);
-        } catch (err) {
-          resolve([false, null]);
-        }
-      });
-    }).on("error", () => {
-      resolve([false, null]);
-    });
-  });
+const network_test = async () => {
+  try {
+    const response = await fetch(network_test_api);
+    const data = await response.json();
+    return [true, data?.ip || null];
+  } catch {
+    return [false, null];
+  }
 };
 
 
 // All Routes
-app.all("*", (req, res) => {
+app.all("*", async(req, res) => {
   
-  const [isInternetReachable, publicIp] = network_test();
+  const [isInternetReachable, publicIp] = await network_test();
   
   const responseData = {
     status  : "Healthy",
