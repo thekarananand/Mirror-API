@@ -15,9 +15,9 @@ Follow the following steps to deploy the API as a Systemd Service:
   ```sh
   # Set Variables
   export API_PATH="$(pwd)"
-  export NPM_CMD="$(which npm) start"
   export RAW_PATH="https://raw.githubusercontent.com/thekarananand/Mirror-API/refs/heads/main"
-  export EXEC_SEARCH_PATH="$(dirname $(which node | head -n 1))"
+  export NODE_PATH="$(dirname $(which node | head -n 1))"
+  export NPM_PATH="$(dirname $(which npm | head -n 1))"
 
   # Download Files and Service
   wget ${RAW_PATH}/Deployment/native/mirror-api.service -O ${API_PATH}/mirror-api.service
@@ -28,10 +28,13 @@ Follow the following steps to deploy the API as a Systemd Service:
   sed -i "s|User=mirror-api|User=$(whoami)|" ${API_PATH}/mirror-api.service
   sed -i "s|Group=mirror-api|Group=$(id -gn)|" ${API_PATH}/mirror-api.service
   sed -i "s|WorkingDirectory=API_PATH|WorkingDirectory=${API_PATH}|" ${API_PATH}/mirror-api.service
-  sed -i "s|ExecStart=NPM_CMD|ExecStart=${NPM_CMD}|" ${API_PATH}/mirror-api.service
-  sed -i "s|ExecSearchPath=EXEC_SEARCH_PATH|ExecSearchPath=${EXEC_SEARCH_PATH}|" ${API_PATH}/mirror-api.service
+  sed -i "s|ExecSearchPath=NODE_PATH|ExecSearchPath=${NODE_PATH}|" ${API_PATH}/mirror-api.service
+  sed -i "s|ExecSearchPath=NPM_PATH|ExecSearchPath=${NPM_PATH}|" ${API_PATH}/mirror-api.service
   sudo cp ${API_PATH}/mirror-api.service /etc/systemd/system/mirror-api.service
-  
+
+  # Allow Port 80 Permission
+  sudo setcap 'cap_net_bind_service=+ep' $(which node)
+
   # Install Dependencies
   cd "${API_PATH}"
   npm install --production
