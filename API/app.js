@@ -67,5 +67,5 @@ app.all("*", (req, res) => {
 
 // Main
 app.listen(port, () => {
-  console.log(`🚀 Listening on ${ !(process.env.PORT) && "DEFAULT "}PORT: ${port}`);
+  console.log(`🚀 Listening on ${ !process.env.PORT ? "DEFAULT " : "" }PORT: ${port}`);
 });
