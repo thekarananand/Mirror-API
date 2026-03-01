@@ -15,6 +15,7 @@ Follow the following steps to deploy the API as a Systemd Service:
   ```sh
   # Set Variables
   export API_PATH="$(pwd)"
+  export NPM_CMD="$(which npm) start"
   export RAW_PATH="https://raw.githubusercontent.com/thekarananand/Mirror-API/refs/heads/main"
   
   # Download Files and Service
@@ -24,6 +25,7 @@ Follow the following steps to deploy the API as a Systemd Service:
   
   # Configure Service
   sed -i "s|WorkingDirectory=API_PATH|WorkingDirectory=${API_PATH}|" ${API_PATH}/mirror-api.service
+  sed -i "s|ExecStart=NPM_CMD|WorkingDirectory=${NPM_CMD}|" ${API_PATH}/mirror-api.service
   sudo cp ${API_PATH}/mirror-api.service /etc/systemd/system/mirror-api.service
   
   # Install Dependencies
