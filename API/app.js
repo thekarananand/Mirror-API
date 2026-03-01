@@ -53,7 +53,7 @@ app.all("*", (req, res) => {
     network : {
       isInternetReachable   : isInternetReachable,
       publicIp              : publicIp
-    }
+    },
     request : {
       route     : req.originalUrl,
       method    : req.method,
