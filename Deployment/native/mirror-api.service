@@ -12,6 +12,7 @@ ExecSearchPath=NPM_PATH
 ExecSearchPath=/usr/bin
 ExecSearchPath=/bin
 Restart=always
+Environment=PORT=80
 
 [Install]
 WantedBy=multi-user.target
